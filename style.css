@@ -20,7 +20,7 @@ body::before{
     height: 100%;
     z-index: -1;
 
-    animation: trasicaoDeImagem 10s ease-in-out infinite alternate;
+    animation: trasicaoDeImagem 15s ease-in-out infinite alternate;
 
     background-repeat: no-repeat;
     background-size: cover;
