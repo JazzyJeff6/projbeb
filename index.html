@@ -24,35 +24,59 @@
         <section>
             <p>Encontre a bebida <br> Perfeita!</p>
             <div class="pesquisa">
-                <input type="text" placeholder="Busque por nome, ingrediente ou receita..." id="inputPerg">
+              <input type="text" placeholder="Busque por nome, ingrediente ou receita..." id="inputPerg">
             </div>
+          </div>
+              <div id="resposta-container" class="hidden">
+                <h3> Resultado:</h3>
+                  <div id="resposta-ia" class="resposta-box"></div>
+                  <button id="copy-btn">Copiar receita</button>
         </section>
     </main>
     
 </body>
 
 <script>
-document.getElementById('inputPerg').addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    event.preventDefault(); // impede o form de recarregar a página
+  document.getElementById('inputPerg').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // impede o form de recarregar a página
 
-    const pesquisa = this.value;
-    /* console.log('aqui teste de pesquisa ', pesquisa); return; */
+      const pesquisa = this.value;
 
-    fetch('/buscar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ pesquisa })
-    })
-    .then(res => res.text())
-    .then(retorno => {
-      console.log("Resposta do servidor:", retorno);
-      alert(retorno); // ou exibe na tela como preferir
-    });
-  }
-});
+
+      fetch('/buscar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pesquisa })
+      })
+        .then(async res => {
+          const retorno = await res.text();
+
+          if (!res.ok) {
+            alert(retorno.error || 'Digite o que deseja buscar, sendo o nome de algum drink ou ingredientes que tenha.');
+            return;
+          }
+
+          document.getElementById('resposta-container').classList.remove('hidden');
+          document.getElementById('resposta-ia').textContent = retorno;
+
+          document.getElementById('copy-btn').onclick = function () {
+            navigator.clipboard.writeText(retorno).then((
+              alert('Receita Copiada!')
+            ));
+          }
+
+
+        })
+        .catch(error => {
+          // erro de rede ou do fetch
+          console.error("Erro na requisição:", error);
+          alert("Erro de conexão com o servidor.");
+        });
+    }
+  });
 </script>
 
 </html>
