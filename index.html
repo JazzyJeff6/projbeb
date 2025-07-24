@@ -10,8 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+  <aside id="sidebar" class="sidebar">
+    <h2>Histórico</h2>
+    <ul id="history-list"></ul>
+  </aside>
+  
     <header>
-        <p class="logotext">DrinkHub</p>
+        <p id="toggle-sidebar" class="logotext">DrinkHub</p>
         <nav class="nav-drinks">
             <button class="nav-button">
                 <img src="/assets/cocktail.png" alt="Menu de Drinks">Menu
@@ -37,46 +42,142 @@
 </body>
 
 <script>
-  document.getElementById('inputPerg').addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      event.preventDefault(); // impede o form de recarregar a página
+document.addEventListener('DOMContentLoaded', () => { // Boa prática para garantir que o DOM esteja carregado
 
-      const pesquisa = this.value;
+    const inputPerg = document.getElementById('inputPerg');
+    const historyList = document.getElementById('history-list');
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebar = document.getElementById('toggle-sidebar'); // Elemento 'DrinkHub' no header
 
+    const respostaContainer = document.getElementById('resposta-container');
+    const respostaIa = document.getElementById('resposta-ia');
+    const copyBtn = document.getElementById('copy-btn');
 
-      fetch('/buscar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ pesquisa })
-      })
-        .then(async res => {
-          const retorno = await res.text();
+    let historyData = [];
 
-          if (!res.ok) {
-            alert(retorno.error || 'Digite o que deseja buscar, sendo o nome de algum drink ou ingredientes que tenha.');
-            return;
-          }
+    // --- Funções Auxiliares ---
 
-          document.getElementById('resposta-container').classList.remove('hidden');
-          document.getElementById('resposta-ia').textContent = retorno;
+    // Função para salvar o histórico no Local Storage
+    function saveHistory() {
+        localStorage.setItem('drinkHistory', JSON.stringify(historyData));
+    }
 
-          document.getElementById('copy-btn').onclick = function () {
-            navigator.clipboard.writeText(retorno).then((
-              alert('Receita Copiada!')
-            ));
-          }
+    // Função para carregar o histórico do Local Storage
+    function loadHistory() {
+        const savedHistory = localStorage.getItem('drinkHistory');
+        if (savedHistory) {
+            historyData = JSON.parse(savedHistory);
+        }
+    }
 
+    // Função para renderizar o histórico na sidebar
+    function renderHistory() {
+        historyList.innerHTML = ''; // Limpa a lista existente antes de renderizar
+        historyData.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            
+            // Adiciona o evento de clique para cada item do histórico
+            li.addEventListener('click', () => {
+                // 1. Remove a classe 'active' de todos os outros itens
+                const currentActive = historyList.querySelector('.active');
+                if (currentActive) {
+                    currentActive.classList.remove('active');
+                }
+                
+                // 2. Adiciona a classe 'active' ao item clicado
+                li.classList.add('active');
 
-        })
-        .catch(error => {
-          // erro de rede ou do fetch
-          console.error("Erro na requisição:", error);
-          alert("Erro de conexão com o servidor.");
+                // 3. Preenche o input de pesquisa com o item clicado
+                inputPerg.value = item;
+                
+                // 4. Fecha a sidebar após a seleção (se for o comportamento desejado)
+                sidebar.classList.remove('show');
+
+                // 5. Opcional: Refazer a busca ao clicar no histórico.
+                // Isso garante que a resposta antiga seja recarregada ou atualizada.
+                // Chame a sua função de busca aqui se ela for separada ou replique a lógica.
+                // Vou replicar a lógica de fetch aqui para o exemplo:
+                performSearch(item); // Chama a função de busca com o item do histórico
+            });
+            
+            historyList.appendChild(li); // Adiciona o item à lista
         });
     }
-  });
-</script>
 
+    // Função para performar a busca e exibir a resposta
+    async function performSearch(query) {
+        if (!query.trim()) return; // Não faz nada se a query for vazia
+
+        try {
+            const response = await fetch('/buscar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pesquisa: query })
+            });
+            const retorno = await response.text();
+
+            respostaContainer.classList.remove('hidden');
+            respostaIa.textContent = retorno;
+
+            // Adiciona a pesquisa ao histórico APÓS a busca ser bem-sucedida
+            // Para evitar duplicatas e garantir que o item mais recente esteja no topo
+            if (!historyData.includes(query)) { // Evita adicionar itens duplicados
+                historyData.unshift(query); // Adiciona no início da array
+                saveHistory(); // Salva o histórico
+                renderHistory(); // Re-renderiza a lista para mostrar o novo item
+            }
+        } catch (error) {
+            console.error('Erro ao buscar:', error);
+            respostaContainer.classList.remove('hidden');
+            respostaIa.textContent = 'Ocorreu um erro ao buscar a receita. Tente novamente.';
+        }
+    }
+
+    // --- Event Listeners ---
+
+    // Evento para o botão de copiar receita
+    copyBtn.addEventListener('click', () => {
+        const textToCopy = respostaIa.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            copyBtn.textContent = 'Copiado!';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copiar receita';
+            }, 2000);
+        });
+    });
+
+    // Alternar sidebar ao clicar no "DrinkHub" no header
+    toggleSidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('show');
+    });
+
+    // Fechar sidebar ao clicar fora dela
+    document.addEventListener('click', function(event) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnToggler = toggleSidebar.contains(event.target);
+
+        if (!isClickInsideSidebar && !isClickOnToggler && sidebar.classList.contains('show')) {
+            sidebar.classList.remove('show');
+        }
+    });
+
+    // Evento para Enter no input de pesquisa
+    inputPerg.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Impede o envio do formulário padrão
+            performSearch(this.value.trim()); // Chama a função de busca
+            this.value = ''; // Limpa o input após a busca (opcional)
+        }
+    });
+
+    // --- Inicialização ---
+
+    // Carrega e renderiza o histórico ao carregar a página
+    loadHistory();
+    renderHistory();
+}); // Fim do DOMContentLoaded
+</script>
 </html>
