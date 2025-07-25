@@ -5,13 +5,13 @@
     box-sizing: border-box;
 }
 
-body {
+body.homepage {
     position: relative;
     min-height: 100vh; /* Garante que o body ocupe a altura toda da tela */
     color: white;
 }
 
-body::before{
+body.homepage::before{
     content: '';
     position: fixed;
     top: 0;
@@ -34,9 +34,12 @@ body::before{
     }
 
     
-    /* Imagem 2: Começa a aparecer */
-    100% {
+    50% {
         background-image: url(./assets/gin2-bg.png);
+    }
+
+    100%{
+        background-image: url(./assets/whiskey-bg.jpg);
     }
 
 }
@@ -150,6 +153,10 @@ header p{
     cursor: pointer;
     padding: 0;
     color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
 }
 
 .nav-button img{
@@ -157,6 +164,7 @@ header p{
     width: auto;
     display: block;
 }
+
 
 .arrow {
     font-size: 1.2rem; /* Deixa a seta um pouco maior */
@@ -242,4 +250,45 @@ section p {
 
 #copy-btn:hover{
     background-color: #0c0c0c;
+}
+
+body.catl{
+    background: hsl(220 15% 8%);
+}
+
+.section-inicial{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-top: -70px;
+    overflow: hidden;
+}
+
+.inicial-imagem{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 100%;
+    z-index: -1;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4) ;
+}
+
+.texto-inicial{
+    position: absolute;
+    top: 50%;
+    left: 95px;
+    /* transform: translate(-50%, -50%); */
+    color: white;
+    font-weight: bold;
+    text-align: center ;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
 }
