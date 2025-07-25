@@ -57,14 +57,14 @@ body::before{
     box-sizing: border-box;
 }
 
-sidebar h2{
+.sidebar h2{
     margin-bottom: 25px;
     font-size: 24px;
     color: antiquewhite;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #444;
 }
 
@@ -122,6 +122,10 @@ header {
     top: 0;
     left: 0;
     z-index: 1000; /* Garante que o header fique na frente de outros elementos */
+}
+
+header p{
+    cursor: pointer;
 }
 
 .logotext {
