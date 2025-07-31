@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalógo</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="catl">
     <header>
         <p id="toggle-sidebar" class="logotext">DrinkHub</p>
@@ -17,14 +19,15 @@
             <div class="overlay"></div>
 
             <div class="conteudo-inicial">
-            <h1 class="texto-inicial">
-                Clássicos e <br> <font color=#D2691E >Criações Únicas</font>
-            </h1>
+                <h1 class="texto-inicial">
+                    Clássicos e <br>
+                    <font color=#D2691E>Criações Únicas</font>
+                </h1>
 
                 <div class="catagall">
                     <button id="catagbuttonall">Ver Catálogo</button>
                 </div>
-                </div>
+            </div>
         </div>
     </section>
 
@@ -38,38 +41,41 @@
     </section>
 
     <section class="dragscroll-section">
-        <div class="dragscroll-container" id="dragscroll">
+        <div class="carrossel-wrapper"></div>
+        <button class="seta esquerda">&#8249;</button>
+        <div class="dragscroll-container carrossel">
             <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
                 <img src="./assets/cardwhisky1.png" alt="whisky 1">
                 <div class="card-info">
-                <h3>Exemplo 1</h3>
+                    <h3>Exemplo 1</h3>
                 </div>
             </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardgin1.png" alt="Gin 1">
-            <div class="card-info">
-                <h3>Exemplo 2</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardgin1.png" alt="Gin 1">
+                <div class="card-info">
+                    <h3>Exemplo 2</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardvodka1.png" alt="Vodka 1">
-            <div class="card-info">
-                <h3>Exemplo 3</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardvodka1.png" alt="Vodka 1">
+                <div class="card-info">
+                    <h3>Exemplo 3</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardcachaca.png" alt="cachaca 1">
-            <div class="card-info">
-                <h3>Exemplo 4</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardcachaca.png" alt="cachaca 1">
+                <div class="card-info">
+                    <h3>Exemplo 4</h3>
+                </div>
             </div>
+            <button class="seta direita">&#8250;</button>
         </div>
-    </div>
     </section>
 
-        <section>
+    <section>
         <div class="h2whisky">
             <h2>Gin</h2>
         </div>
@@ -78,39 +84,42 @@
         </div>
     </section>
 
-        <section class="dragscroll-section">
-        <div class="dragscroll-container" id="dragscroll">
+    <section class="dragscroll-section">
+        <div class="carrossel-wrapper"></div>
+        <button class="seta esquerda">&#8249;</button>
+        <div class="dragscroll-container carrossel">
             <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
                 <img src="./assets/cardwhisky1.png" alt="whisky 1">
                 <div class="card-info">
-                <h3>Exemplo 1</h3>
+                    <h3>Exemplo 1</h3>
                 </div>
             </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardgin1.png" alt="Gin 1">
-            <div class="card-info">
-                <h3>Exemplo 2</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardgin1.png" alt="Gin 1">
+                <div class="card-info">
+                    <h3>Exemplo 2</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardvodka1.png" alt="Vodka 1">
-            <div class="card-info">
-                <h3>Exemplo 3</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardvodka1.png" alt="Vodka 1">
+                <div class="card-info">
+                    <h3>Exemplo 3</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardcachaca.png" alt="cachaca 1">
-            <div class="card-info">
-                <h3>Exemplo 4</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardcachaca.png" alt="cachaca 1">
+                <div class="card-info">
+                    <h3>Exemplo 4</h3>
+                </div>
             </div>
+            <button class="seta direita">&#8250;</button>
         </div>
-    </div>
     </section>
 
-        <section>
+    <section>
         <div class="h2whisky">
             <h2>Vodka</h2>
         </div>
@@ -119,36 +128,116 @@
         </div>
     </section>
 
-        <section class="dragscroll-section">
-        <div class="dragscroll-container" id="dragscroll">
+    <section class="dragscroll-section">
+        <div class="carrossel-wrapper"></div>
+        <button class="seta esquerda">&#8249;</button>
+        <div class="dragscroll-container carrossel">
             <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
                 <img src="./assets/cardwhisky1.png" alt="whisky 1">
                 <div class="card-info">
-                <h3>Exemplo 1</h3>
+                    <h3>Exemplo 1</h3>
                 </div>
             </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardgin1.png" alt="Gin 1">
-            <div class="card-info">
-                <h3>Exemplo 2</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardgin1.png" alt="Gin 1">
+                <div class="card-info">
+                    <h3>Exemplo 2</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardvodka1.png" alt="Vodka 1">
-            <div class="card-info">
-                <h3>Exemplo 3</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardvodka1.png" alt="Vodka 1">
+                <div class="card-info">
+                    <h3>Exemplo 3</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
-            <img src="./assets/cardcachaca.png" alt="cachaca 1">
-            <div class="card-info">
-                <h3>Exemplo 4</h3>
+            <div class="card" onclick="window.location.href='colocarproximapaginadessecard'">
+                <img src="./assets/cardcachaca.png" alt="cachaca 1">
+                <div class="card-info">
+                    <h3>Exemplo 4</h3>
+                </div>
             </div>
+            <button class="seta direita">&#8250;</button>
         </div>
-    </div>
     </section>
+
+<script>
+    document.querySelectorAll(".carrossel").forEach((carrossel, index) => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        carrossel.addEventListener("mousedown", (e) => {
+            isDown = true;
+            carrossel.classList.add("dragging");
+            startX = e.pageX - carrossel.offsetLeft;
+            scrollLeft = carrossel.scrollLeft;
+        });
+
+        carrossel.addEventListener("mouseleave", () => {
+            isDown = false;
+            carrossel.classList.remove("dragging");
+        });
+
+        carrossel.addEventListener("mouseup", () => {
+            isDown = false;
+            carrossel.classList.remove("dragging");
+        });
+
+        carrossel.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carrossel.offsetLeft;
+            const walk = x - startX;
+            carrossel.scrollLeft = scrollLeft - walk;
+        });
+
+        carrossel.addEventListener("touchstart", (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - carrossel.offsetLeft;
+            scrollLeft = carrossel.scrollLeft;
+        });
+
+        carrossel.addEventListener("touchend", () => {
+            isDown = false;
+        });
+
+        carrossel.addEventListener("touchmove", (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - carrossel.offsetLeft;
+            const walk = x - startX;
+            carrossel.scrollLeft = scrollLeft - walk;
+        });
+
+        // Botões relacionados ao carrossel atual
+        const setaEsq = carrossel.parentElement.querySelector(".seta.esquerda");
+        const setaDir = carrossel.parentElement.querySelector(".seta.direita");
+
+        setaEsq?.addEventListener("click", () => {
+            carrossel.scrollBy({ left: -300, behavior: "smooth" });
+        });
+
+        setaDir?.addEventListener("click", () => {
+            carrossel.scrollBy({ left: 300, behavior: "smooth" });
+        });
+
+        function verificarSetas() {
+            const precisaSetas = carrossel.scrollWidth > carrossel.clientWidth;
+            setaEsq.style.display = precisaSetas ? "block" : "none";
+            setaDir.style.display = precisaSetas ? "block" : "none";
+        }
+
+        window.addEventListener("load", verificarSetas);
+        window.addEventListener("resize", verificarSetas);
+    });
+
+    // Desabilita arrastar imagem em todos
+    document.querySelectorAll(".carrossel img").forEach(img => {
+        img.setAttribute("draggable", "false");
+    });
+</script>
 </body>
+
 </html>

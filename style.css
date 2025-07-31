@@ -354,7 +354,9 @@ body.catl{
     text-shadow: 2px 2px #222;
 }
 
-.dragscroll-section{
+
+
+/* .dragscroll-section{
     padding: 10px 20px;
     overflow: hidden;
 }
@@ -397,4 +399,110 @@ body.catl{
 .card-info h3{
     margin: 0;
     font-size: 1rem;
+} */
+
+.dragscroll-container.dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+
+.dragscroll-section {
+    overflow: hidden;
+    position: relative;
+    padding: 40px 0;
+}
+
+.dragscroll-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 20px;
+}
+
+.dragscroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.card {
+    flex: 0 0 auto;
+    width: 280px;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: white;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
+    width: 100%;
+}
+
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    z-index: 10;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: none; /* oculto por padrão */
+}
+
+.seta:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.seta.esquerda { left: 10px; }
+.seta.direita { right: 10px; }
+
+/* Só mostra as setas em telas maiores */
+@media (min-width: 768px) {
+    .seta {
+        display: block;
+    }
+}
+
+.carrossel-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.carrossel-wrapper::before,
+.carrossel-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.carrossel-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(15,15,15,1), rgba(15,15,15,0));
+}
+
+.carrossel-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(15,15,15,1), rgba(15,15,15,0));
 }
