@@ -11,6 +11,19 @@
 <body class="catl">
     <header>
         <p id="toggle-sidebar" class="logotext">DrinkHub</p>
+
+        <nav class="nav-drinks">
+            <div class="nav-button" onclick="toggleMenu()">
+                <img src="./assets/cocktail.png" alt="Menu de Drinks">Menu</a>
+            </div>
+
+            <div id="dropdown-menu" class="dropdown-menu">
+                <a href="./home.html">Inicial</a>
+                <a href="./index.html">IA</a>
+            </div>
+        </nav>
+
+        <div class="header-right-spacer"></div>
     </header>
 
     <section>
@@ -262,6 +275,19 @@
     document.querySelectorAll(".carrossel img").forEach(img => {
         img.setAttribute("draggable", "false");
     });
+
+    function toggleMenu() {
+    const menu = document.getElementById("dropdown-menu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  }
+
+window.addEventListener("click", function (e) {
+    const menu = document.getElementById("dropdown-menu");
+    const button = document.querySelector(".nav-button");
+    if (!menu.contains(e.target) && !button.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
 </script>
 </body>
 

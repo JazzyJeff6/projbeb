@@ -17,10 +17,19 @@
   
     <header>
         <p id="toggle-sidebar" class="logotext">DrinkHub</p>
+
         <nav class="nav-drinks">
-            <a href="./catl.html" class="nav-button">
+            <div class="nav-button" onclick="toggleMenu()">
                 <img src="./assets/cocktail.png" alt="Menu de Drinks">Menu</a>
+            </div>
+
+            <div id="dropdown-menu" class="dropdown-menu">
+                <a href="./home.html">Inicial</a>
+                <a href="./catl.html">Catálogo</a>
+                <a href="./login.html">teste</a>
+            </div>
         </nav>
+
         <div class="header-right-spacer"></div>
     </header>
 
@@ -178,5 +187,18 @@ document.addEventListener('DOMContentLoaded', () => { // Boa prática para garan
     loadHistory();
     renderHistory();
 }); // Fim do DOMContentLoaded
+
+function toggleMenu() {
+    const menu = document.getElementById("dropdown-menu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  }
+
+window.addEventListener("click", function (e) {
+    const menu = document.getElementById("dropdown-menu");
+    const button = document.querySelector(".nav-button");
+    if (!menu.contains(e.target) && !button.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
 </script>
 </html>

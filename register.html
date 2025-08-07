@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar - DrinkHub</title>
     <link rel="stylesheet" href="style.css">
-    <title>Home DrinkHub</title>
 </head>
-<body class="homepage">
-    <header>
+<body class="bodyregister">
+        <header>
         <p id="toggle-sidebar" class="logotext">DrinkHub</p>
 
         <nav class="nav-drinks">
@@ -24,26 +24,26 @@
         <div class="header-right-spacer"></div>
     </header>
 
-    <section class="herohome">
-        <div>
-            <h1 class="h1inicial">
-                Catálogo de <br> <font color=#D2691E>Bebidas Premium</font>
-            </h1>
-            <p class="pinicial">
-                Explore nossa coleção completa de drinks!
-            </p>
-            <a href="index.html" class="buttoniaindex">Buscar pela IA</a>
-            <a href="./catl.html" class="buttoncatl">Explorar Drinks</a>
-        </div>
-    </section>
+    <div class="register-container">
+        <h2>Cadastre-se</h2>
+        <form>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="Digite seu E-mail" required>
 
-    <section>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel officiis molestias omnis aperiam accusantium adipisci culpa non facilis inventore aliquam. Ullam a provident mollitia suscipit repellendus totam sit reiciendis blanditiis!
-    </section>
+            <label for="password">Senha</label>
+            <input type="password" id="password" placeholder="Digite sua senha" required>
+            
+            <label for="idade">Idade</label>
+            <input type="idade" id="idade" placeholder="Digite suas idade" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+        <!-- <p class="register">Não tem conta? <a href="./register.html">Cadastre-se</a></p> -->
+    </div>
+    
 </body>
-
 <script>
-    function toggleMenu() {
+        function toggleMenu() {
     const menu = document.getElementById("dropdown-menu");
     menu.style.display = (menu.style.display === "block") ? "none" : "block";
   }
