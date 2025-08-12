@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar - DrinkHub</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bodyregister">
-        <header>
+    <header>
         <p id="toggle-sidebar" class="logotext">DrinkHub</p>
 
         <nav class="nav-drinks">
@@ -26,34 +28,138 @@
 
     <div class="register-container">
         <h2>Cadastre-se</h2>
-        <form>
+        <form id="formCadastro">
+            <label for="nome">Nome</label>
+            <input type="nome" id="nome" placeholder="Digite seu Nome" required>
+
             <label for="email">E-mail</label>
             <input type="email" id="email" placeholder="Digite seu E-mail" required>
 
             <label for="password">Senha</label>
             <input type="password" id="password" placeholder="Digite sua senha" required>
-            
-            <label for="idade">Idade</label>
-            <input type="idade" id="idade" placeholder="Digite suas idade" required>
+
+            <label for="idade">Data de Nascimento</label>
+            <input type="idade" id="idade" placeholder="Digite sua data de nascimento" maxlength="10" required>
 
             <button type="submit">Cadastrar</button>
         </form>
         <!-- <p class="register">Não tem conta? <a href="./register.html">Cadastre-se</a></p> -->
     </div>
-    
-</body>
-<script>
-        function toggleMenu() {
-    const menu = document.getElementById("dropdown-menu");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
-  }
 
-window.addEventListener("click", function (e) {
-    const menu = document.getElementById("dropdown-menu");
-    const button = document.querySelector(".nav-button");
-    if (!menu.contains(e.target) && !button.contains(e.target)) {
-      menu.style.display = "none";
-    }
-  });
-</script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("dropdown-menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        window.addEventListener("click", function (e) {
+            const menu = document.getElementById("dropdown-menu");
+            const button = document.querySelector(".nav-button");
+            if (!menu.contains(e.target) && !button.contains(e.target)) {
+                menu.style.display = "none";
+            }
+        });
+
+        const idadeInput = document.getElementById("idade");
+        const form = document.getElementById("formCadastro");
+
+        idadeInput.addEventListener("input", function (e) {
+            let valor = e.target.value.replace(/\D/g, "");
+            if (valor.length > 2 && valor.length <= 4) {
+                valor = valor.replace(/(\d{2})(\d+)/, "$1/$2");
+            } else if (valor.length > 4) {
+                valor = valor.replace(/(\d{2})(\d{2})(\d+)/, "$1/$2/$3");
+            }
+            e.target.value = valor;
+        });
+
+        // Novo e único event listener para o formulário
+        form.addEventListener("submit", async function (e) {
+            // Impede o recarregamento padrão da página
+            e.preventDefault();
+
+            // Lógica de validação da data de nascimento
+            const valor = idadeInput.value;
+            const partes = valor.split("/");
+
+            if (partes.length !== 3) {
+                alert("Preencha a data no formato dd/mm/yyyy.");
+                return;
+            }
+
+            const dia = parseInt(partes[0], 10);
+            const mes = parseInt(partes[1], 10);
+            const ano = parseInt(partes[2], 10);
+
+            if (isNaN(dia) || isNaN(mes) || isNaN(ano) || dia < 1 || dia > 31 || mes < 1 || mes > 12) {
+                alert("Data inválida. Verifique o dia e o mês.");
+                return;
+            }
+
+            const hoje = new Date();
+            const nascimento = new Date(ano, mes - 1, dia);
+
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const mesAtual = hoje.getMonth() - nascimento.getMonth();
+            if (mesAtual < 0 || (mesAtual === 0 && hoje.getDate() < nascimento.getDate())) {
+                idade--;
+            }
+
+            if (idade < 18) {
+                alert("Você deve ter pelo menos 18 anos para se cadastrar.");
+                console.log('idade menor que 18');
+                return;
+            }
+
+            // Se a validação passou, faz o fetch para a API
+            console.log('Validação de idade OK, enviando dados...');
+            const nome = document.getElementById("nome").value;
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("password").value;
+            if(senha.length < 8){
+                   alert("A senha precisa ter 8 ou mais caracteres");
+                   return;
+            }
+            const idadevalor = idadeInput.value;
+            const partesidade = idadevalor.split("/");
+            const diaatualizado = partesidade[0];
+            const mesatualizaddo = partesidade[1];
+            const anoatualizado = partesidade[2];
+
+            // Formata a data para o padrão americano (YYYY-MM-DD)
+            // É importante adicionar um '0' na frente do dia e mês se eles tiverem apenas um dígito
+            const dataNascimento  = `${anoatualizado}-${mesatualizaddo.padStart(2, '0')}-${diaatualizado.padStart(2, '0')}`;
+            /* console.log('aqui'); */
+            console.log(dataNascimento);
+            
+            try {
+                const response = await fetch('/registrar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome, email, senha, dataNascimento })
+                });
+
+                const retorno = await response.json();
+                console.log(retorno);
+
+                if (response.ok) {
+                    alert("Cadastro realizado com sucesso!");
+                    // Opcional: redirecionar para outra página
+                    // window.location.href = '/login'; 
+                } else {
+                    alert(retorno.mensagem);
+                }
+
+            } catch (error) {
+                console.error('Erro ao registrar:', error);
+                alert("Ocorreu um erro de conexão ao cadastrar.");
+            }
+        });
+
+    </script>
+
+</body>
+
 </html>
