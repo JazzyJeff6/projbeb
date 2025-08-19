@@ -23,6 +23,9 @@ async function logarUsuario(usuario) {
             const senhaCorreta = await bcrypt.compare(senha, usuarioEncontrado.senha);
 
              if (senhaCorreta) {
+                const idLogin = usuarioEncontrado.id;
+                const alterarData = `UPDATE drinkhub.users SET data_login = ? WHERE id = ?;`;
+                const [updateData] = await conn.execute(alterarData, [data_login, idLogin]);
                 //bateu os dados corretos
                    return true; 
              } else {
