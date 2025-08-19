@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - DrinkHub</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bodylogin">
     <header>
         <p id="toggle-sidebar" class="logotext">DrinkHub</p>
@@ -26,7 +28,7 @@
 
     <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form id="formLogin">
             <label for="email">E-mail</label>
             <input type="email" id="email" placeholder="Digite seu E-mail" required>
 
@@ -37,21 +39,56 @@
         </form>
         <p class="register">Não tem conta? <a href="./register.html">Cadastre-se</a></p>
     </div>
-    
+
 </body>
 
 <script>
-        function toggleMenu() {
-    const menu = document.getElementById("dropdown-menu");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
-  }
-
-window.addEventListener("click", function (e) {
-    const menu = document.getElementById("dropdown-menu");
-    const button = document.querySelector(".nav-button");
-    if (!menu.contains(e.target) && !button.contains(e.target)) {
-      menu.style.display = "none";
+    function toggleMenu() {
+        const menu = document.getElementById("dropdown-menu");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
     }
-  });
+
+    window.addEventListener("click", function (e) {
+        const menu = document.getElementById("dropdown-menu");
+        const button = document.querySelector(".nav-button");
+        if (!menu.contains(e.target) && !button.contains(e.target)) {
+            menu.style.display = "none";
+        }
+    });
+
+    const form = document.getElementById("formLogin");
+    form.addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("password").value;
+
+        try {
+            const response = await fetch('/logar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, senha })
+            });
+
+            const retorno = await response.json();
+            console.log(retorno);
+
+            if (response.ok) {
+                alert("Usuário Logado com sucesso");
+            } else {
+                alert(retorno.mensagem);
+            }
+
+        } catch (error) {
+            console.error('Erro ao logar:', error);
+            alert("Ocorreu um erro de conexão ao cadastrar.");
+        }
+
+    });
+
 </script>
+
 </html>
